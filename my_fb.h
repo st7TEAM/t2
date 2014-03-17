@@ -37,7 +37,7 @@ class fbClass
 #else
 	FTC_ImageTypeRec	desc;
 #endif
-	FT_Face			aface;
+	FT_Face			face;
 	FT_UInt			prev_glyphindex;
 	int use_kerning;
 	int RenderChar(FT_ULong currentchar, int sx, int sy, int ex, int r, int g, int b);
