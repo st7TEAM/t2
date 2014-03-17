@@ -56,7 +56,7 @@ int fh_png_load(const char *name, unsigned char *buffer, int x, int y)
 		return(FH_ERROR_FORMAT);
 	}
 
-	(setjmp(png_ptr->jmpbuf)) ==> if (setjmp(png_jmpbuf(png_ptr))) 
+	if (setjmp(png_jmpbuf(png_ptr))) 
 	{
 		png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp)NULL);
 		fclose(fh); 
