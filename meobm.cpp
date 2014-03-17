@@ -54,13 +54,24 @@ meobm::meobm()
       		fclose(f);
    	}
 	strcpy(driver,"[ n/a ]");
-	strcpy(secver,"Vu+");
+	strcpy(secver,"Enigma2");
 	strcpy(kerver,"[ n/a ]");
 	
 	f = fopen("/var/lib/opkg/status", "rt");
    	if (f) {
 		while (fgets(buf, 256, f)) {
 			if (strstr(buf, "Package: vuplus-dvb-modules")) {
+				fgets(buf, 256, f);
+				temps = string(buf);
+				pos = temps.find(' ');
+				if(pos != string::npos)
+					 temps = temps.substr(pos);
+				pos = temps.find('\n');
+				if(pos != string::npos)
+					temps.replace(pos, 1, "");
+				sprintf(driver, "[ %s ]", temps.c_str());
+			}
+				if (strstr(buf, "Package: gigablue-dvb-modules")) {
 				fgets(buf, 256, f);
 				temps = string(buf);
 				pos = temps.find(' ');
