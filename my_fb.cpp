@@ -152,9 +152,9 @@ fbClass::fbClass()
 		munmap(lfb, available);
 	}
 
-	if((FTC_Manager_Lookup_Face(manager, (char*)FONT, &face)))
+	if((FTC_Manager_LookupFace(manager, (char*)FONT, &face)))
 	{
-		printf("[FONT] <FTC_Manager_Lookup_Face failed with Errorcode 0x%.2X>\n", error);
+		printf("[FONT] <FTC_Manager_LookupFace failed with Errorcode 0x%.2X>\n", error);
 		FTC_Manager_Done(manager);
 		FT_Done_FreeType(library);
 		munmap(lfb, available);
