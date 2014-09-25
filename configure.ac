@@ -1,8 +1,8 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_INIT(meobm.cpp)
-AM_INIT_AUTOMAKE(meobm,0.1)
+AC_INIT(egamibm.cpp)
+AM_INIT_AUTOMAKE(egamibm,0.1)
 
 # Checks for programs.
 AC_PROG_CXX
