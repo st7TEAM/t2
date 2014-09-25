@@ -46,11 +46,11 @@ public:
 
 
 
-class meobm
+class egamibm
 {
 	std::vector<eImage> imageList;
 //	std::vector<eImage>::iterator it;
-	static meobm *instance;
+	static egamibm *instance;
 	fbClass *display;
 	int rc[2];
 	int selentry;
@@ -60,7 +60,7 @@ class meobm
 	int mypic_x, mypic_y;
 
 	std::string model;
-	char meobootver[128];
+	char egamibootver[128];
 	char kerver[128];
 	char driver[128];
 	char secver[128];
@@ -77,9 +77,9 @@ class meobm
 	
 
  public:
-	static meobm *getInstance() {return (instance) ? instance : instance = new meobm();}
-	meobm();
-	~meobm();
+	static egamibm *getInstance() {return (instance) ? instance : instance = new egamibm();}
+	egamibm();
+	~egamibm();
  
 };
 
