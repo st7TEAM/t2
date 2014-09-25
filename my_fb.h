@@ -21,7 +21,6 @@
 #include FT_FREETYPE_H
 #include FT_CACHE_H
 #include FT_CACHE_SMALL_BITMAPS_H
-#define FONT "/usr/lib/enigma2/python/Plugins/Extensions/MeoBoot/font/micron_bold.ttf"
 #endif
 
 
