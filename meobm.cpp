@@ -1,8 +1,8 @@
-#include "meobm.h"
+#include "egamibm.h"
 
-meobm *meobm::instance;
+egamibm *egamibm::instance;
 
-meobm::meobm()
+egamibm::egamibm()
 {
 	instance = this;
 	selentry = 0;
@@ -27,7 +27,7 @@ meobm::meobm()
 // Open Remote Control
 		if ((rc[rc_num]=open(tmp, O_RDONLY|O_NONBLOCK)) == -1)
 		{
-			printf("Meoboot <open remote control>");
+			printf("Egamiboot <open remote control>");
 			
 		}
 		if (ioctl(rc[rc_num], EVIOCGNAME(128), tmp) < 0)
@@ -47,10 +47,10 @@ meobm::meobm()
 	}
 
 
-	f = fopen("/media/meoboot/MbootM/.version", "rt");
+	f = fopen("/media/egamiboot/EgamiBootI/.version", "rt");
   	 if (f) {
 		fgets(buf, 256, f);
-		sprintf(meobootver, "--MeoBoot-- version %s <meo>", buf);
+		sprintf(egamibootver, "--EgamiBoot-- version %s <egami>", buf);
       		fclose(f);
    	}
 	strcpy(driver,"[ n/a ]");
@@ -124,7 +124,7 @@ meobm::meobm()
 	model = "dm7025";	
 /*
 // Load background Pixmap
-	std::string pic = "/usr/lib/enigma2/python/Plugins/Extensions/MeoBoot/icons/meomenu.png";
+	std::string pic = "/usr/lib/enigma2/python/Plugins/Extensions/EGAMIBoot/icons/egamimenu.png";
 		if (fh_png_id(pic.c_str()) == 1) {
 			fh_png_getsize(pic.c_str(), &mypic_x, &mypic_y, INT_MAX, INT_MAX);
 			mypix = (unsigned char *)malloc(mypic_x * mypic_y * 3);
@@ -143,7 +143,7 @@ meobm::meobm()
 }
 
 
-void meobm::menuLoop()
+void egamibm::menuLoop()
 {
 
 	do {
@@ -173,7 +173,7 @@ void meobm::menuLoop()
 }
 
 
-void meobm::missionComplete()
+void egamibm::missionComplete()
 {
 
 	display->SetMode(720, 576, 16);
@@ -197,13 +197,13 @@ void meobm::missionComplete()
 			curimage = imageList[i].name;
 		}
 	}
-	if (FILE *f = fopen("/media/meoboot/MbootM/.meoboot", "w")){
+	if (FILE *f = fopen("/media/egamiboot/EgamiBootI/.egamiboot", "w")){
 		fprintf(f, curimage.c_str());
 		fclose(f);
 	}
 }
 
-void meobm::loadImageList()
+void egamibm::loadImageList()
 {
 	eImage image;
 	struct stat s;
@@ -213,14 +213,14 @@ void meobm::loadImageList()
 	imageList.push_back(image);
 
 
-	DIR *d = opendir("/media/meoboot/MbootM/");
+	DIR *d = opendir("/media/egamiboot/EgamiBootI/");
 	if (d)
 	{
 		while (struct dirent *e = readdir(d))
 		{
 			if (strcmp(e->d_name, ".") && strcmp(e->d_name, ".."))
 			{
-				std::string name = "/media/meoboot/MbootM/" + std::string(e->d_name);
+				std::string name = "/media/egamiboot/EgamiBootI/" + std::string(e->d_name);
 				stat(name.c_str(), &s);
 				if (S_ISDIR(s.st_mode))
 				{
@@ -235,7 +235,7 @@ void meobm::loadImageList()
 
 }
 
-void meobm::selCurImage()
+void egamibm::selCurImage()
 {
 
 	std::string curimage = "";
@@ -244,7 +244,7 @@ void meobm::selCurImage()
 	if (lastentry > MAXIMAGES)
 		lastentry = MAXIMAGES;
 
-	FILE *f = fopen("/media/meoboot/MbootM/.meoboot", "rt");
+	FILE *f = fopen("/media/egamiboot/EgamiBootI/.egamiboot", "rt");
    	if (f) {
 		fgets(buf, 100, f);
 		fclose(f);
@@ -263,14 +263,14 @@ void meobm::selCurImage()
 	}
 }
 
-void meobm::showpic()
+void egamibm::showpic()
 {
 // clear screen
 	display->SetMode(720, 576, 16);
 //	display->fb_display(mypix, NULL, mypic_x, mypic_y, 0, 0, 0, 0);
 }
 
-void meobm::drawmenu()
+void egamibm::drawmenu()
 {
 	startTimer();
 
@@ -304,7 +304,7 @@ void meobm::drawmenu()
 	}
 	
 
-	display->RenderString(meobootver, 70, 365, 500, fbClass::LEFT, 22, 255, 255, 255);
+	display->RenderString(egamibootver, 70, 365, 500, fbClass::LEFT, 22, 255, 255, 255);
 	display->RenderString("Linux kernel version:", 70, 400, 200, fbClass::LEFT, 20, 255, 255, 255);
 	if(model == "dm7025")
 		display->RenderString(kerver, 400, 400, 250, fbClass::RIGHT, 20, 255, 0, 0);
@@ -315,7 +315,7 @@ void meobm::drawmenu()
 		display->RenderString(driver, 400, 425, 300, fbClass::RIGHT, 20, 255, 0, 0);
 	else	
 		display->RenderString(driver, 400, 425, 250, fbClass::RIGHT, 20, 0, 255, 0);
-	display->RenderString("MeoBoot is running on:", 70, 450, 300, fbClass::LEFT, 20, 255, 255, 255);
+	display->RenderString("EGAMIBoot is running on:", 70, 450, 300, fbClass::LEFT, 20, 255, 255, 255);
 	if(model == "dm7025")
 		display->RenderString(secver, 400, 450, 250, fbClass::RIGHT, 20, 255, 0, 0);
 	else
@@ -325,7 +325,7 @@ void meobm::drawmenu()
 
 }
 
-int meobm::GetRCCode()
+int egamibm::GetRCCode()
 {
 
 	struct input_event ev;
@@ -391,25 +391,25 @@ int meobm::GetRCCode()
 	return 0;
 }
 
-void meobm::startTimer()
+void egamibm::startTimer()
 {
 	current_time = time(0);
 }
 
-int meobm::checkTimer()
+int egamibm::checkTimer()
 {
 	time_t new_time = time(0);
 	int current = int(new_time - current_time);
 	return current;
 }
 
-meobm::~meobm()
+egamibm::~egamibm()
 {
 }
 
 int main(int argc, char **argv)
 {
-	meobm::getInstance();
+	egamibm::getInstance();
 	return 0;
 }
 
