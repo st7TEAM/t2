@@ -1,4 +1,4 @@
-meobm_SOURCES = egamibm.cpp my_fb.cpp png.cpp
+egamibm_SOURCES = egamibm.cpp my_fb.cpp png.cpp
 
 bin_PROGRAMS = egamibm
 
